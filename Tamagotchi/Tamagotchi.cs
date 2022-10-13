@@ -2,10 +2,10 @@ using System;
 
 public class Tamagotchi
 {
+    public string name = "";
     //private
-    private string name = "xX_kawaiiNekoXx";
-    private int hunger = 9;
-    private int boredom;
+    private int hunger = 0;
+    private int boredom = 0;
     private bool isAlive = true;
     private List<string> words = new List<string>();
 
@@ -33,17 +33,19 @@ public class Tamagotchi
 
     public void Hi()
     {
-
+        int banan = generator.Next(0, words.Count);
+        Console.WriteLine(words[banan]);
     }
 
     public void teach(string word)
     {
         words.Add(word);
+        ReduceBoredom();
     }
 
     public void tick()
     {
-        hunger++;
+        hunger += 2;
         if (hunger > 10)
         {
             isAlive = false;
@@ -60,6 +62,7 @@ public class Tamagotchi
     //Printar ut tamagochins stats
     public void PrintStats()
     {
+        Console.WriteLine($"-----------------");
         Console.WriteLine($"Hunger: {hunger}");
         Console.WriteLine($"Boredom: {boredom}");
         if (isAlive == true)
@@ -69,6 +72,16 @@ public class Tamagotchi
         else
         {
             Console.WriteLine("Den dog ):");
+        }
+        Console.WriteLine($"-----------------");
+    }
+
+    private void ReduceBoredom()
+    {
+        boredom -= 2;
+        if (boredom < 0)
+        {
+            boredom = 0;
         }
     }
 
